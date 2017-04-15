@@ -1,12 +1,12 @@
 package Project01;
 
 import javafx.application.Platform;
-
 import java.io.*;
 import java.net.Socket;
 
 public class ListenerThread extends Thread
 {
+    public volatile static boolean endThread = false;
     private Socket socket = null;
 
     public ListenerThread(Socket socket)
@@ -30,16 +30,40 @@ public class ListenerThread extends Thread
             BufferedReader in = new BufferedReader(inputStreamReader);
 
             // The main loop of execution.
-            // It only executes when the server has sent a message.
-            while((receivedMessage = in.readLine()) != null)
+            // This executes when the servers sends a message
+            // and the thread has not received a flag to terminate.
+            while((receivedMessage = in.readLine()) != null
+                    && !endThread)
             {
+                // NOTE: The variable sent to the
+                // Application GUI thread has to be final.
                 final String message = receivedMessage;
 
-                // Update the Label on the JavaFx Application Thread
+                // Displays the received messages.
                 Platform.runLater(() ->
                         ChatClient.controller.setMessages(message));
+
+                // Catches the Unavailable Username error thrown by the server.
+                if(message.equals("Name in use."))
+                {
+                    Platform.runLater(() ->
+                            ChatClient.controller.displayError("Unavailable Username",
+                                    "The username you entered is already being used."));
+                    endThread = true;
+                }
+
+                // Catches the Inactivity error thrown by the server.
+                if(message.equals("Connection idle for 1 minute, closing connection."))
+                {
+                    Thread.sleep(5000);
+                    Platform.runLater(() ->
+                            ChatClient.controller.displayError("Connection Timed Out",
+                                    "You were idle for 1 minute "
+                                            + "so the server closed your connection."));
+                    endThread = true;
+                }
             }
-            socket.close();
+            ChatClient.disconnectFromServer();
         }
         catch (IOException e)
         {
@@ -47,7 +71,7 @@ public class ListenerThread extends Thread
         }
         catch (Exception e)
         {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
         }
     }
 }
