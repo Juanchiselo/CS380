@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="Project_01.jnlp">
+  <information>
+    <title>Client Chat (Project 01)</title>
+    <vendor>Jose Juan Sandoval</vendor>
+    <description>Client Chat (Project 01)</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="Project_01.jar" size="271188" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="500" height="500" main-class="Project01.ChatClient"  name="Client Chat (Project 01)" />
+  <update check="background"/>
+</jnlp>

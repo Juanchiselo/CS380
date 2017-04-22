@@ -25,10 +25,8 @@ public class Ex2Client
         try
         {
             socket = new Socket(hostName, portNumber);
-            ListenerThread.endThread = false;
-
-            // Creates and starts a new thread to listen for messages.
             new ListenerThread(socket).start();
+            System.out.println("Connected to server.");
         }
         catch (UnknownHostException e)
         {
@@ -48,10 +46,11 @@ public class Ex2Client
         try
         {
             socket.close();
+            System.out.println("Disconnected from server.");
         }
         catch (IOException e)
         {
-            System.err.println(e.getMessage());
+            System.err.println("ERROR: " + e.getMessage());
         }
     }
 }

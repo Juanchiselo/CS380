@@ -1,0 +1,22 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="Client Chat (Project 01)">
+    <output-path>$PROJECT_DIR$/out</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="Project01.ChatClient" />
+        <option name="description" value="" />
+        <option name="height" value="500" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="title" value="Client Chat (Project 01)" />
+        <option name="vendor" value="Jose Juan Sandoval" />
+        <option name="version" value="1.0" />
+        <option name="width" value="500" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="Project_01.jar">
+        <element id="module-output" name="Project 01" />
+      </element>
+    </root>
+  </artifact>
+</component>
