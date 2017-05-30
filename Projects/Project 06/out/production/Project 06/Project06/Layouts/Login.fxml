@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<BorderPane id="loginBorderPane" fx:id="borderPaneMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" styleClass="background" stylesheets="@../Styles/DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Project06.LoginController">
+   <left>
+        <GridPane prefHeight="579.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1233.0" minWidth="10.0" percentWidth="100.0" prefWidth="1100.0" />
+            </columnConstraints>
+            <rowConstraints>
+            <RowConstraints maxHeight="320.6666564941406" minHeight="10.0" percentHeight="60.0" prefHeight="89.33333587646484" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="320.6666564941406" percentHeight="10.0" prefHeight="89.33333587646484" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="320.6666564941406" minHeight="10.0" percentHeight="20.0" prefHeight="89.33333587646484" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="320.6666564941406" minHeight="10.0" percentHeight="20.0" prefHeight="89.33333587646484" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="320.6666564941406" minHeight="10.0" percentHeight="20.0" prefHeight="89.33333587646484" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                  <TextField fx:id="usernameTextField" alignment="CENTER" onAction="#onLogin" prefHeight="37.0" prefWidth="278.0" promptText="Username" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets left="100.0" right="100.0" />
+               </GridPane.margin>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </TextField>
+                  <Button fx:id="loginButton" mnemonicParsing="false" onAction="#onLogin" style="-fx-font-size: 18;" text="Start Game" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+            <Label id="labelError" fx:id="errorLLabel" textAlignment="CENTER" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Label text="Tic Tac Toe" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            </children>
+        </GridPane>
+   </left>
+</BorderPane>
