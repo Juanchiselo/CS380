@@ -1,5 +1,7 @@
 package Project06;
 
+import javafx.application.Platform;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -33,41 +35,56 @@ public class TicTacToeThread extends Thread
         {
             objectInputStream = new ObjectInputStream(socket.getInputStream());
             objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
-
             objectOutputStream.writeObject(connectMessage);
             commandMessage = new CommandMessage(CommandMessage.Command.NEW_GAME);
             objectOutputStream.writeObject(commandMessage);
             currentTurn = "USER";
 
-            while((message = (Message) objectInputStream.readObject()) != null)
+//            System.out.println(socket.getInputStream().read());
+//            message = (Message) objectInputStream.readObject();
+//            boardMessage = (BoardMessage) message;
+//            System.out.println(boardMessage.getStatus());
+//            objectOutputStream.writeObject(new MoveMessage((byte)1,(byte)2));
+
+            while(!endThread)
             {
-                System.out.println(message.getType());
+                message = (Message) objectInputStream.readObject();
 
                 switch (message.getType())
                 {
                     case BOARD:
                         boardMessage = (BoardMessage) message;
-
                         byte[][] board = boardMessage.getBoard();
                         System.out.println(board.toString());
+                        String messageString = null;
 
                         switch (boardMessage.getStatus())
                         {
                             case PLAYER1_VICTORY:
+                                messageString = "Player 1 Won!";
                                 break;
                             case PLAYER2_VICTORY:
+                                messageString = "Player 2 Won!";
                                 break;
                             case PLAYER1_SURRENDER:
+                                messageString = "Player 1 Surrendered!";
                                 break;
                             case PLAYER2_SURRENDER:
+                                messageString = "Player 2 Surrendered!";
                                 break;
                             case IN_PROGRESS:
                                 break;
                             case STALEMATE:
+                                messageString = "Draw!";
                                 break;
                             case ERROR:
+                                messageString = "ERROR: ";
                                 break;
                         }
+
+                        Platform.runLater(() ->
+                                TicTacToeClient.controller
+                                        .updateMessageLabel("Player 1 Won!"));
                         break;
                     case ERROR:
                         errorMessage = (ErrorMessage) message;
@@ -80,6 +97,7 @@ public class TicTacToeThread extends Thread
             //objectOutputStream.close();
         }
         catch (IOException e) {
+            endThread = true;
             e.printStackTrace();
             System.err.println("ERROR: " + e.getMessage() + ".");
         } catch (ClassNotFoundException e) {
