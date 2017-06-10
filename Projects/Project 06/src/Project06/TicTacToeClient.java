@@ -16,7 +16,7 @@ public class TicTacToeClient extends Application
     public static Scene loginScene;
     public static Scene ticTacToeScene;
     public static Stage stage;
-    public Controller controller;
+    public static Controller controller;
 
     @Override
     public void start(Stage primaryStage) throws Exception

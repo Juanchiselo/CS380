@@ -3,9 +3,11 @@ package Project06;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,8 +25,9 @@ public class Controller
     @FXML private ImageView lowerLeftImageView;
     @FXML private ImageView lowerCenterImageView;
     @FXML private ImageView lowerRightImageView;
-
     private List<ImageView> images;
+
+    @FXML private Label messageLabel;
 
     public void initialize()
     {
@@ -51,6 +54,11 @@ public class Controller
                 TicTacToeThread.makeMove();
             }
         }
+    }
+
+    public void updateMessageLabel(String message)
+    {
+        messageLabel.setText(message);
     }
 
 }
